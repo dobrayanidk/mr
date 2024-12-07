@@ -1,0 +1,160 @@
+<html><head><base href="." />
+<style>
+.heart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 1.5s ease infinite;
+}
+
+@keyframes pulse {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.2); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(45deg, #ffffff, #ff69b4);
+  overflow: hidden;
+}
+
+.name {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Arial', sans-serif;
+  font-size: 2.5em;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  z-index: 1;
+  animation: glow 2s ease-in-out infinite;
+}
+
+.button {
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 15px 30px;
+  font-size: 1.2em;
+  background-color: #ff3366;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.button:hover {
+  background-color: #ff1493;
+  transform: translate(-50%, -52%);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+.message {
+  position: absolute;
+  top: 85%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Arial', sans-serif;
+  font-size: 1.8em;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 1;
+}
+
+.hello-kitty {
+  position: absolute;
+  top: 40%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.3s ease;
+  z-index: 1;
+  width: 300px;
+  height: auto;
+}
+
+.hello-kitty:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+@keyframes glow {
+  0%, 100% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff0000; }
+  50% { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff0000; }
+}
+
+.falling-heart {
+  position: absolute;
+  animation: fall linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-10vh) rotate(0deg); }
+  100% { transform: translateY(110vh) rotate(360deg); }
+}
+</style>
+</head>
+<body>
+<svg class="heart" width="100" height="100" viewBox="0 0 100 100">
+  <path d="M50 90 C50 90, 90 70, 90 30 A20 20 0 1 0 50 30 A20 20 0 1 0 10 30 C10 70, 50 90, 50 90" 
+        fill="#ff0000" 
+        stroke="#ff0000"
+        stroke-width="1"/>
+</svg>
+
+<img src="OIP.jpg" class="hello-kitty">
+
+<div class="name">Amorcito <3</div>
+<button class="button">Click Me</button>
+<div class="message">Te amito mucho ❤️</div>
+
+<script>
+function createHeart() {
+  const heart = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  heart.setAttribute("class", "falling-heart");
+  heart.setAttribute("width", "30");
+  heart.setAttribute("height", "30");
+  heart.setAttribute("viewBox", "0 0 100 100");
+  
+  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path.setAttribute("d", "M50 90 C50 90, 90 70, 90 30 A20 20 0 1 0 50 30 A20 20 0 1 0 10 30 C10 70, 50 90, 50 90");
+  path.setAttribute("fill", "#ff0000");
+  path.setAttribute("stroke", "#ff0000");
+  path.setAttribute("stroke-width", "1");
+  
+  heart.appendChild(path);
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+  
+  document.body.appendChild(heart);
+  
+  setTimeout(() => {
+    heart.remove();
+  }, 5000);
+}
+
+setInterval(createHeart, 300);
+
+document.querySelector('.button').addEventListener('click', function() {
+  const message = document.querySelector('.message');
+  const helloKitty = document.querySelector('.hello-kitty');
+  message.style.opacity = '1';
+  helloKitty.style.opacity = '1';
+  setTimeout(() => {
+    message.style.opacity = '0';
+    helloKitty.style.opacity = '0';
+  }, 2000);
+});
+</script>
+</body></html>
